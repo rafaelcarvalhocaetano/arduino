@@ -11,7 +11,11 @@ package conection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -29,9 +33,32 @@ public class ConnectorFactory {
         Connection conexao = DriverManager.getConnection(URL, USER, PASS);
         return conexao;
     }
-    
-            
-    
-    
-    
+    public static void closeConnection(Connection c){
+        if(c != null){
+            try {
+                c.close();
+            } catch (SQLException e) {
+                Logger.getLogger(ConnectorFactory.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    }
+    public static void closeConnection(Connection c, PreparedStatement pst){
+       if(pst != null){
+           try {
+               pst.close();
+           } catch (SQLException e) {
+               Logger.getLogger(ConnectorFactory.class.getName()).log(Level.SEVERE, null, e);
+           }
+       }
+    }
+    public static void closeConnection(Connection c, PreparedStatement pst, ResultSet rs){
+       if(rs != null){
+           try {
+               rs.close();
+           } catch (SQLException e) {
+               Logger.getLogger(ConnectorFactory.class.getName()).log(Level.SEVERE, null, e);
+           }
+       }
+        closeConnection(c, pst);
+    }
 }
