@@ -1,11 +1,16 @@
-//POTENCIOMETRO
+int num = 1;
+int num2 = 100;
+int num3 = 5;
+
 
 void setup() {
-  // put your setup code here, to run once:
+  Serial.begin(9600);
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+ Serial.println(num);
+ num ++;
+ delay(2000);
 
 }
