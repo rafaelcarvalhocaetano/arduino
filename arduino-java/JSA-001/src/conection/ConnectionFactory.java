@@ -19,10 +19,10 @@ import java.util.logging.Logger;
 
 
 
-public class ConnectorFactory {
+public class ConnectionFactory {
    
-    //private static final String DRIVE = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql//localhost:3306/arduino";
+    private static final String DRIVE = "com.mysql.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://localhost:3306/arduinojava";
     private static final String PASS = "q1w2e3r4";
     private static final String USER = "root";
     
@@ -38,7 +38,7 @@ public class ConnectorFactory {
             try {
                 c.close();
             } catch (SQLException e) {
-                Logger.getLogger(ConnectorFactory.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }
@@ -47,7 +47,7 @@ public class ConnectorFactory {
            try {
                pst.close();
            } catch (SQLException e) {
-               Logger.getLogger(ConnectorFactory.class.getName()).log(Level.SEVERE, null, e);
+               Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, e);
            }
        }
     }
@@ -56,7 +56,7 @@ public class ConnectorFactory {
            try {
                rs.close();
            } catch (SQLException e) {
-               Logger.getLogger(ConnectorFactory.class.getName()).log(Level.SEVERE, null, e);
+               Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, e);
            }
        }
         closeConnection(c, pst);

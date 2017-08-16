@@ -9,7 +9,7 @@ import java.util.Date;
 public class Temperatura {
     
     private int id;
-    private double valor;
+    private Double valor;
     private Date data;
 
     public int getId() {
