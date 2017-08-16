@@ -14,8 +14,10 @@ public class TemperaturaDAO {
 
         Connection c = ConnectionFactory.getConnection();
         PreparedStatement ps = null;
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO temp (valor) VALUES (?)");
         try {
-            ps = c.prepareStatement("INSERT INTO temp (valor) VALUES (?)");
+            ps = c.prepareStatement(sql.toString());
             ps.setDouble(1, t.getValor());
 
             ps.executeUpdate();
@@ -30,25 +32,4 @@ public class TemperaturaDAO {
             ConnectionFactory.closeConnection(c, ps);
         }
     }
-    
-    public static void main(String[] args){
-        Temperatura temp = new Temperatura();
-        
-        temp.setValor(23.5);
-        
-        TemperaturaDAO dao = new TemperaturaDAO();
-        
-        try {
-            if(dao.save(temp)){
-                System.out.println("Salvo com sucesso ...");
-            }else{
-                
-                System.err.println("erro ... ");
-            }
-        } catch (SQLException ex) {
-            System.err.println("erro ... "+ex);
-        }
-                
-    }
-
 }
