@@ -13,15 +13,6 @@ import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
 
-/**
- * <b>Site: www.descompila.com</b>
- * 
- * <b>Email: samuelson@descompila.com</b>
- * 
- * @author Samuelson Brito
- * 
- * @version 1.0
- */
 public class ArduinoSerial implements SerialPortEventListener {
 
     private SerialPort serialPort;
