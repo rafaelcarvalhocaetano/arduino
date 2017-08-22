@@ -5,6 +5,13 @@
  */
 package view;
 
+import bean.Temperatura;
+import dao.TemperaturaDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import util.ArduinoSerial;
+
 /**
  *
  * @author Developer
@@ -14,8 +21,46 @@ public class ViewTemp extends javax.swing.JFrame {
     /**
      * Creates new form ViewTemp
      */
-    public ViewTemp() {
+     public ViewTemp() {
         initComponents();
+        
+        ArduinoSerial ard = new ArduinoSerial("COM3");
+        
+        Thread t = new Thread(){
+          
+          @Override
+          public void run(){
+              ard.initialize();
+              
+              while (true) {
+                  lb.setText(ard.read());
+                  
+                  if(ard.read() != null && Double.parseDouble(ard.read()) > 32){
+                      
+                      try {
+                          TemperaturaDAO dao = new TemperaturaDAO();
+                          Temperatura temp = new Temperatura();
+                          
+                          temp.setValor(Double.parseDouble(ard.read()));
+                          
+                          if( dao.save(temp)){
+                              System.out.println("Salvo com sucesso "+temp.getValor());
+                          }else{
+                              System.out.println("Erro ao salvar ... ");
+                          }
+                          ard.sleep(9000);
+                      } catch (SQLException ex) {
+                          Logger.getLogger(ViewTemp.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+                      
+                  }
+                  
+              }
+              
+          }
+        };
+        t.start();
+        
     }
 
     /**
@@ -27,20 +72,34 @@ public class ViewTemp extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lb = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Temperatura");
+
+        lb.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(122, 122, 122)
+                .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -79,5 +138,6 @@ public class ViewTemp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lb;
     // End of variables declaration//GEN-END:variables
 }
