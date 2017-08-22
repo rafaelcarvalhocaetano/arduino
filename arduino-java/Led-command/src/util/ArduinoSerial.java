@@ -1,3 +1,4 @@
+package util;
 
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
@@ -12,12 +13,21 @@ import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
 
-public class Arduino implements SerialPortEventListener {
+/**
+ * <b>Site: www.descompila.com</b>
+ * 
+ * <b>Email: samuelson@descompila.com</b>
+ * 
+ * @author Samuelson Brito
+ * 
+ * @version 1.0
+ */
+public class ArduinoSerial implements SerialPortEventListener {
 
     private SerialPort serialPort;
     private final String namePort;
 
-    public Arduino(String portName) {
+    public ArduinoSerial(String portName) {
         this.namePort = portName;
     }
 
