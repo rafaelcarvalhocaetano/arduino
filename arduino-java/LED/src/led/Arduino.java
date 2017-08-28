@@ -6,6 +6,8 @@
 package led;
 
 import gnu.io.*;
+import java.io.BufferedReader;
+import java.io.OutputStream;
 import java.util.Enumeration;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -18,6 +20,10 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
     private SerialPort SERIAL_PORT;
     private String appName = "Supervisor";
     private final int TIME_OUT = 1000;
+    private OutputStream output = null;
+    private BufferedReader input = null;
+    private String SERIAL_PORT_NAME;
+    private int BAULD_RATE;
     
     public Arduino() {
         initComponents();
@@ -63,6 +69,12 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
                     break;
                 }
             }
+            SERIAL_PORT.setSerialPortParams(baul_rate, SERIAL_PORT.DATABITS_8, SERIAL_PORT.STOPBITS_1, SERIAL_PORT.PARITY_NONE);
+            SERIAL_PORT.addEventListener(this);
+            SERIAL_PORT.notifyOnDataAvailable(true);
+            
+            status = true;
+            
             if(ID_PORTAS == null || SERIAL_PORT == null){
                 return false;
             }
@@ -72,6 +84,22 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
             status = false;
         }
         return status;
+    }
+    public void enviarDados(String dados){
+        try {
+            output = SERIAL_PORT.getOutputStream();
+            output.write(dados.getBytes());
+        } catch (Exception e) {
+            System.err.println(e.toString());
+            JOptionPane.showMessageDialog(null, "ERRO AO ENVIAR OS DADOS ... "+e);
+        }
+    }
+    public synchronized void closeSerial(){
+        if(SERIAL_PORT != null){
+            SERIAL_PORT.removeEventListener();
+            SERIAL_PORT.close();
+            JOptionPane.showMessageDialog(null, "A comunicação serial foi encerrada com sucesso ... ");
+        }
     }
     
     private void Bauld_Rates(){
@@ -324,10 +352,31 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
 
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
        
+        SERIAL_PORT_NAME = (String)(portas.getSelectedItem());
+        BAULD_RATE = Integer.parseInt((String) bauldRate.getSelectedItem());
+                
+        if(inicia_serial(SERIAL_PORT_NAME, BAULD_RATE)){
+            btnBuscarPortas.setEnabled(false);
+            btnConectar.setEnabled(false);
+            btnDesconectar.setEnabled(true);
+                
+            bauldRate.setEnabled(false);
+            modelo_placa.setEnabled(false);
+            portas.setEnabled(false);
+            status.setText("Conectado");
+            lbInfo.setText("Conectado a porta:"+portas.getSelectedItem());
+        }
     }//GEN-LAST:event_btnConectarActionPerformed
 
     private void btnDesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesconectarActionPerformed
-        
+        closeSerial();
+        btnBuscarPortas.setEnabled(true);
+        btnConectar.setEnabled(false);
+        btnDesconectar.setEnabled(false);
+                
+        bauldRate.setEnabled(false);
+        modelo_placa.setEnabled(false);
+        portas.setEnabled(false);
     }//GEN-LAST:event_btnDesconectarActionPerformed
 
     private void btnBuscarPortasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPortasActionPerformed
