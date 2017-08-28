@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.OutputStream;
 import java.util.Enumeration;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Arduino extends javax.swing.JFrame implements SerialPortEventListener{
@@ -89,6 +90,9 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
         try {
             output = SERIAL_PORT.getOutputStream();
             output.write(dados.getBytes());
+            
+            
+           
         } catch (Exception e) {
             System.err.println(e.toString());
             JOptionPane.showMessageDialog(null, "ERRO AO ENVIAR OS DADOS ... "+e);
@@ -139,7 +143,7 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        img = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -149,18 +153,18 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
         modelo_placa = new javax.swing.JComboBox<>();
         bauldRate = new javax.swing.JComboBox<>();
         status = new javax.swing.JTextField();
-        led_status = new javax.swing.JLabel();
         lbInfo = new javax.swing.JLabel();
         btnConectar = new javax.swing.JButton();
         btnBuscarPortas = new javax.swing.JButton();
         btnDesconectar = new javax.swing.JButton();
+        imgAlt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ligando Led");
 
-        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+        img.setBackground(new java.awt.Color(51, 102, 255));
+        img.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        img.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -198,7 +202,6 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
         jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         portas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        portas.setSelectedIndex(-1);
         portas.setEnabled(false);
 
         modelo_placa.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -222,10 +225,6 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
         status.setForeground(new java.awt.Color(255, 0, 0));
         status.setText("Desconectado !");
         status.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        led_status.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        led_status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        led_status.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lbInfo.setBackground(new java.awt.Color(255, 255, 255));
         lbInfo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -258,71 +257,73 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        imgAlt.setBackground(new java.awt.Color(255, 255, 255));
+        imgAlt.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        imgAlt.setForeground(new java.awt.Color(255, 255, 255));
+        imgAlt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imgAlt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/if_buttons_16_10672.png"))); // NOI18N
+
+        javax.swing.GroupLayout imgLayout = new javax.swing.GroupLayout(img);
+        img.setLayout(imgLayout);
+        imgLayout.setHorizontalGroup(
+            imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imgLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(imgLayout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(portas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(imgLayout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(modelo_placa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(imgLayout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bauldRate, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(imgLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(status)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(led_status, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnBuscarPortas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnConectar)
+                        .addComponent(imgAlt, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, imgLayout.createSequentialGroup()
+                        .addComponent(btnBuscarPortas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnConectar, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDesconectar)))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        imgLayout.setVerticalGroup(
+            imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(modelo_placa, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bauldRate, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(portas, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(led_status, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(imgAlt)
                     .addComponent(status, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarPortas, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDesconectar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -335,15 +336,15 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(406, Short.MAX_VALUE))
+                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(383, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         pack();
@@ -356,6 +357,7 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
         BAULD_RATE = Integer.parseInt((String) bauldRate.getSelectedItem());
                 
         if(inicia_serial(SERIAL_PORT_NAME, BAULD_RATE)){
+            
             btnBuscarPortas.setEnabled(false);
             btnConectar.setEnabled(false);
             btnDesconectar.setEnabled(true);
@@ -365,6 +367,7 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
             portas.setEnabled(false);
             status.setText("Conectado");
             lbInfo.setText("Conectado a porta:"+portas.getSelectedItem());
+            imgAlt.setIcon(new ImageIcon(getClass().getResource("/imagem/stop.png")));
         }
     }//GEN-LAST:event_btnConectarActionPerformed
 
@@ -405,7 +408,9 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
                 
                 Bauld_Rates();
                 Modelo_Plca();
+                
             }else if(PORT_NAME_LIST[0] == null){
+               
                 lbInfo.setText("Nenhuma porta localizada ... ");
                 JOptionPane.showConfirmDialog(null, "Nenhuma porta foi localizada, verifique novamente ...");
                 lbInfo.setText("Click no botão buscar portas ... ");
@@ -417,8 +422,6 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
                 bauldRate.setEnabled(false);
                 modelo_placa.setEnabled(false);
                 portas.setEnabled(false);
-                
-                
                 
             }
     }//GEN-LAST:event_btnBuscarPortasActionPerformed
@@ -469,7 +472,7 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
 
     @Override
     public void serialEvent(SerialPortEvent spe) {
-        
+      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -477,14 +480,14 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
     private javax.swing.JButton btnBuscarPortas;
     private javax.swing.JButton btnConectar;
     private javax.swing.JButton btnDesconectar;
+    private javax.swing.JPanel img;
+    private javax.swing.JLabel imgAlt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbInfo;
-    private javax.swing.JLabel led_status;
     private javax.swing.JComboBox<String> modelo_placa;
     private javax.swing.JComboBox<String> portas;
     private javax.swing.JTextField status;
