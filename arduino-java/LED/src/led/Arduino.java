@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package led;
 
 import gnu.io.*;
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Enumeration;
 import javax.swing.DefaultComboBoxModel;
@@ -25,6 +22,7 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
     private BufferedReader input = null;
     private String SERIAL_PORT_NAME;
     private int BAULD_RATE;
+    private String LEITURA_SERIAL;
     
     public Arduino() {
         initComponents();
@@ -102,7 +100,9 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
         if(SERIAL_PORT != null){
             SERIAL_PORT.removeEventListener();
             SERIAL_PORT.close();
-            JOptionPane.showMessageDialog(null, "A comunicação serial foi encerrada com sucesso ... ");
+            System.out.println("Comunicação encerrada ... ");
+            //JOptionPane.showMessageDialog(null, "A comunicação serial foi encerrada com sucesso ... ");
+            imgAlt.setIcon(new ImageIcon(getClass().getResource("/imagem/parado.png")));
         }
     }
     
@@ -472,7 +472,24 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
 
     @Override
     public void serialEvent(SerialPortEvent spe) {
-      
+        try {
+            switch(spe.getEventType()){
+                case SerialPortEvent.DATA_AVAILABLE:
+                    if(input == null){
+                        input = new BufferedReader(new InputStreamReader(SERIAL_PORT.getInputStream()));
+                    }
+                    if(input.ready()){
+                        LEITURA_SERIAL = input.readLine();
+                        System.out.println("Dados recebido pela serial ..."+LEITURA_SERIAL);
+                    }else{
+                        input = new BufferedReader(new InputStreamReader(SERIAL_PORT.getInputStream()));
+                    }
+                    break;
+                    default:
+                        break;
+            }
+        } catch (Exception e) {
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
