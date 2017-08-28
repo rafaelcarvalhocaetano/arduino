@@ -14,6 +14,10 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
     
     private String [] PORT_NAME_LIST; //retornará as portas disponiveis no SO
     private Enumeration BUSCA_LISTA_PORT; //retorna uma lista de porta disponíveis
+    private CommPortIdentifier ID_PORTAS;
+    private SerialPort SERIAL_PORT;
+    private String appName = "Supervisor";
+    private final int TIME_OUT = 1000;
     
     public Arduino() {
         initComponents();
@@ -23,7 +27,9 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
     public String [] RetornaPortas(){
         int i = 0;
         
+        BUSCA_LISTA_PORT = null;        
         BUSCA_LISTA_PORT = CommPortIdentifier.getPortIdentifiers();
+        
         PORT_NAME_LIST = new String[10];
         
         while (BUSCA_LISTA_PORT.hasMoreElements()) {
@@ -36,6 +42,36 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
             
         }
         return PORT_NAME_LIST;       
+    }
+    
+    public boolean inicia_serial(String serial_port_name, int baul_rate){
+        boolean status = false;
+        try {
+            BUSCA_LISTA_PORT = null;        
+            BUSCA_LISTA_PORT = CommPortIdentifier.getPortIdentifiers();
+            ID_PORTAS = null;
+            
+            while(ID_PORTAS == null && BUSCA_LISTA_PORT.hasMoreElements()){
+               
+                CommPortIdentifier PORTA_ATUAL = (CommPortIdentifier) BUSCA_LISTA_PORT.nextElement();
+                if(PORTA_ATUAL.getName().equals(serial_port_name) || PORTA_ATUAL.getName().startsWith(serial_port_name)){
+                    SERIAL_PORT = (SerialPort) PORTA_ATUAL.open(appName, TIME_OUT);
+                    ID_PORTAS = PORTA_ATUAL;
+                    
+                    System.out.println("Conectando a porta serial: "+ID_PORTAS.getName());
+                    System.out.println("Taxa de transmissão: "+baul_rate);
+                    break;
+                }
+            }
+            if(ID_PORTAS == null || SERIAL_PORT == null){
+                return false;
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            status = false;
+        }
+        return status;
     }
     
     private void Bauld_Rates(){
@@ -346,6 +382,7 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
         // TODO add your handling code here:
     }//GEN-LAST:event_modelo_placaActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */
