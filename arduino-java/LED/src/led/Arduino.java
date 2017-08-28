@@ -7,6 +7,8 @@ package led;
 
 import gnu.io.*;
 import java.util.Enumeration;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 public class Arduino extends javax.swing.JFrame implements SerialPortEventListener{
     
@@ -66,11 +68,9 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
         modelo_placa.addItem("Arduino Ethernet");
         modelo_placa.addItem("Arduino Fio");
         modelo_placa.addItem("Arduino BT");
-        
-        
+       
     }
-
-    
+ 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -295,27 +295,47 @@ public class Arduino extends javax.swing.JFrame implements SerialPortEventListen
     }//GEN-LAST:event_btnDesconectarActionPerformed
 
     private void btnBuscarPortasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPortasActionPerformed
+       
+        bauldRate.setModel(new DefaultComboBoxModel(new String[]{} ));
+        modelo_placa.setModel(new DefaultComboBoxModel(new String[]{} ));
+        portas.setModel(new DefaultComboBoxModel(new String[]{} ));
+        
         RetornaPortas();
         
         for(int i=0; i<PORT_NAME_LIST.length; i++){
             
-            if(PORT_NAME_LIST[i] != null){
-                portas.addItem(PORT_NAME_LIST[i]);
+            portas.addItem(PORT_NAME_LIST[i]); 
+        }
+        if(PORT_NAME_LIST[0] != null){
                 
-                modelo_placa.setEnabled(true);
-                bauldRate.setEnabled(true);
-                portas.setEnabled(true);
+                btnBuscarPortas.setEnabled(true);
                 btnConectar.setEnabled(true);
                 btnDesconectar.setEnabled(true);
                 
+                bauldRate.setEnabled(true);
+                modelo_placa.setEnabled(true);
+                portas.setEnabled(true);
+                
                 lbInfo.setText("Informe os Valores e click em conectar ... ");
-                
-                
                 
                 Bauld_Rates();
                 Modelo_Plca();
+            }else if(PORT_NAME_LIST[0] == null){
+                lbInfo.setText("Nenhuma porta localizada ... ");
+                JOptionPane.showConfirmDialog(null, "Nenhuma porta foi localizada, verifique novamente ...");
+                lbInfo.setText("Click no botão buscar portas ... ");
+                
+                btnBuscarPortas.setEnabled(true);
+                btnConectar.setEnabled(false);
+                btnDesconectar.setEnabled(false);
+                
+                bauldRate.setEnabled(false);
+                modelo_placa.setEnabled(false);
+                portas.setEnabled(false);
+                
+                
+                
             }
-        }
     }//GEN-LAST:event_btnBuscarPortasActionPerformed
 
     private void bauldRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bauldRateActionPerformed
