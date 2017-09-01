@@ -134,4 +134,12 @@ public class ArduinoSerial implements SerialPortEventListener {
         // Ignore all the other eventTypes, but you should consider the other ones.
     }
 
+    public void hashCode(int n) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void serialEvent(int n) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -99,8 +99,15 @@ public class io extends javax.swing.JFrame {
     }//GEN-LAST:event_numeroActionPerformed
 
     private void btnligaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnligaActionPerformed
-           
+
         ard.send("l");
+        int n = Integer.parseInt(numero.getText());
+        ard.hashCode(n);
+        texto.setText(numero.getText());
+        
+     
+       
+      
         
     }//GEN-LAST:event_btnligaActionPerformed
 
