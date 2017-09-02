@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
+import javax.swing.JOptionPane;
 
 
 public class ArduinoSerial implements SerialPortEventListener {
@@ -91,6 +92,14 @@ public class ArduinoSerial implements SerialPortEventListener {
             System.err.println(e.toString());
         }
     }
+     public void enviaDados(int opcao){
+    try {
+      output.write(opcao);//escreve o valor na porta serial para ser enviado
+    } catch (IOException ex) {
+        JOptionPane.showMessageDialog(null, "Não foi possível enviar o dado. ",
+                "Enviar dados", JOptionPane.PLAIN_MESSAGE);
+    }
+  } 
 
     public String read() {
         //leitura
