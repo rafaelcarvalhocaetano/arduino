@@ -1,10 +1,18 @@
 package view;
 
+import bean.Dados;
+import dao.Crud;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Interface extends javax.swing.JFrame {
 
     
+    
     public Interface() {
         initComponents();
+      
     }
 
     /**
@@ -40,6 +48,11 @@ public class Interface extends javax.swing.JFrame {
         jLabel2.setText("NOME");
 
         salvar.setText("SALVAR");
+        salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarActionPerformed(evt);
+            }
+        });
 
         nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +125,22 @@ public class Interface extends javax.swing.JFrame {
     private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
         
     }//GEN-LAST:event_nomeActionPerformed
+
+    private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
+       try {
+        Dados d = new Dados();
+        d.setNome(nome.getText());
+        
+        Crud dao = new Crud();
+        dao.salvar(d);
+        
+        System.out.println("Salvo com sucesso ...");
+        
+        nome.setText("");
+        } catch (SQLException ex) {
+            System.out.println("Erro ao salvar");
+        }
+    }//GEN-LAST:event_salvarActionPerformed
 
     
     public static void main(String args[]) {
