@@ -1,39 +1,56 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <mysql.h>
 
-MYSQL *con;
-MYSQL_RES *res;
-MYSQL_ROW row;
-
-static char *server = "localhost";
-static char *user = "root";
-static char *pass = "q1w2e3r4";
-static char *db = "conectandoc";
-
-int main()
+void main()
 {
-    //CONECTANDO AO BANCO
-    con = mysql_init(NULL);
-    if(!mysql_real_connect(con, server, user, pass, db, 0, NULL, 0)){
-        fprintf(stderr, "%s\n", mysql_error(con));
-    }
-    //COMANDO
-    if(mysql_query(con, "show DB")){
-        fprintf(stderr, "%s\n", mysql_error(con));
-        exit(1);
-    }
-    res = mysql_use_result(con);
-    printf("CONECTADO COM MYSQL...");
+    MYSQL conexao;
+    MYSQL_RES *resp;
+    MYSQL_ROW linhas;
+    MYSQL_FIELD *campos;
+    char query[] = "SELECT * FROM conexao";
+    int conta;
 
-    while((row = mysql_fetch_row(res)) != NULL)
+     mysql_init(&conexao);
+     if( mysql_real_connect(&conexao, "localhost", "root", "q1w2e3r4", "conectandoc", 0, NULL, 0))
     {
-        printf("%s \n", row[0]);
-
+        printf("Conectado com sucesso ... ");
+        if(mysql_query(&conexao, query))
+        {
+            printf("Erro %d : %s", mysql_error(&conexao), mysql_errno(&conexao));
+        }else
+        {
+            resp = mysql_store_result(&conexao);
+            if(resp)
+            {
+                campos = mysql_fetch_field(resp);
+                for(conta = 0; conta<mysql_num_fields(resp); conta++)
+            {
+                printf("%s", (campos[conta]).name);
+                if(mysql_num_fields(resp) > 1)
+                    printf("\t");
+            }
+            printf("\n");
+            while((linhas = mysql_fetch_row(resp)) != NULL)
+            {
+                for(conta=0; conta<mysql_num_fields(resp);conta++)
+                {
+                    printf("%s\t", linhas[conta]);
+                    printf("\n");
+                }
+            }
+            mysql_free_result(resp);
+            }
+            mysql_close(&conexao);
+        }
     }
-    mysql_free_result(res);
-    mysql_close(con);
+        else
+        {
+            printf("Conexão falhou...");
+            if(mysql_errno(&conexao))
+            {
+                printf("Erro %d : %s", mysql_error(&conexao), mysql_errno(&conexao));
+            }
+            return 0;
 
-    system("pause");
-    return 0;
+        }
 }
