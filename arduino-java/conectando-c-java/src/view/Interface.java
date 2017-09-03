@@ -8,34 +8,32 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-
 public class Interface extends javax.swing.JFrame {
 
-    
-   
     public Interface() {
-       initComponents();
-       DefaultTableModel modelo = (DefaultTableModel) lista.getModel();
-       lista.setRowSorter(new TableRowSorter(modelo));
+        initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) lista.getModel();
+        lista.setRowSorter(new TableRowSorter(modelo));
         try {
             read();
         } catch (SQLException ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }
-    public void read() throws SQLException{
+
+    public void read() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) lista.getModel();
         model.setNumRows(0);
         Crud dao = new Crud();
-        
-        for(Dados d:dao.listar()){
+
+        for (Dados d : dao.listar()) {
             model.addRow(new Object[]{
-            d.getId(),
-            d.getNome()
-        });
+                d.getId(),
+                d.getNome()
+            });
         }
-       
+
     }
 
     /**
@@ -95,6 +93,11 @@ public class Interface extends javax.swing.JFrame {
         });
 
         jButton2.setText("ATUALIZAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         lista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -178,50 +181,70 @@ public class Interface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
-        
+
     }//GEN-LAST:event_nomeActionPerformed
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
-       try {
-        Dados d = new Dados();
-        d.setId(Integer.parseInt(id.getText()));
-        d.setNome(nome.getText());
-        
-        Crud dao = new Crud();
-        dao.salvar(d);
-        
-        read();
-        System.out.println("Salvo com sucesso ...");
-        
-        id.setText("");
-        nome.setText("");
-       
+        try {
+            Dados d = new Dados();
+            d.setId(Integer.parseInt(id.getText()));
+            d.setNome(nome.getText());
+
+            Crud dao = new Crud();
+            dao.salvar(d);
+
+            read();
+            System.out.println("Salvo com sucesso ...");
+
+            id.setText("");
+            nome.setText("");
+
         } catch (SQLException ex) {
-            
+
             System.out.println("Erro ao salvar");
             ex.printStackTrace();
         }
     }//GEN-LAST:event_salvarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
-        try{
+
+        try {
             Dados d = new Dados();
             Crud dao = new Crud();
             dao.excluir(d);
-            tbl.remove(d);
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             System.out.println("Erro ao excluir");
             e.printStackTrace();
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
-    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        if (lista.getSelectedRow() != -1) {
+            try {
+                Dados d = new Dados();
+                Crud dao = new Crud();
+
+                d.setId((int) lista.getValueAt(lista.getSelectedRow(), 0));
+                d.setNome(nome.getText());
+
+                dao.editar(d);
+
+                id.setText("");
+                nome.setText("");
+            } catch (SQLException e) {
+                System.out.println("Atualizado com sucesso ... ");
+                e.printStackTrace();
+            }
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public static void main(String args[]) {
-       
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Interface().setVisible(true);
