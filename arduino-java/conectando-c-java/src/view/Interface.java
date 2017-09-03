@@ -84,6 +84,11 @@ public class Interface extends javax.swing.JFrame {
         });
 
         sair.setText("SAIR");
+        sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sairActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("EXCLUIR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +121,16 @@ public class Interface extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        lista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaMouseClicked(evt);
+            }
+        });
+        lista.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                listaKeyReleased(evt);
             }
         });
         jScrollPane2.setViewportView(lista);
@@ -223,25 +238,50 @@ public class Interface extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        if (lista.getSelectedRow() != -1) {
-            try {
+        try {
+            if(lista.getSelectedRow() != -1){
+                
                 Dados d = new Dados();
-                Crud dao = new Crud();
-
-                d.setId((int) lista.getValueAt(lista.getSelectedRow(), 0));
+                d.setId(Integer.parseInt(id.getText()));
                 d.setNome(nome.getText());
 
+                Crud dao = new Crud();
                 dao.editar(d);
 
-                id.setText("");
-                nome.setText("");
-            } catch (SQLException e) {
-                System.out.println("Atualizado com sucesso ... ");
-                e.printStackTrace();
+                read();
             }
+            System.out.println("Atualizado com sucesso ...");
 
+            id.setText("");
+            nome.setText("");
+
+        } catch (SQLException ex) {
+
+            System.out.println("Erro ao salvar");
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void listaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listaKeyReleased
+       
+        if(lista.getSelectedRow() != -1){
+            id.setText( lista.getValueAt(lista.getSelectedRow(), 0).toString());
+            nome.setText(lista.getValueAt(lista.getSelectedRow(), 1).toString());   
+        }
+        
+    }//GEN-LAST:event_listaKeyReleased
+
+    private void listaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaMouseClicked
+       
+        if(lista.getSelectedRow() != -1){
+            id.setText( lista.getValueAt(lista.getSelectedRow(), 0).toString());
+            nome.setText(lista.getValueAt(lista.getSelectedRow(), 1).toString()); 
+        }
+    }//GEN-LAST:event_listaMouseClicked
+
+    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_sairActionPerformed
 
     public static void main(String args[]) {
 

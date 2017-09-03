@@ -42,13 +42,13 @@ public class Crud {
     public void editar(Dados d) throws SQLException{
         StringBuilder sql = new StringBuilder();
         
-        sql.append("UPDATE conexao SET id = ?, nome = ? WHERE id = ? ");
+        sql.append("UPDATE conexao SET nome = ? WHERE id = ? ");
         
         Connection conexao = Conexao.conexao();
         PreparedStatement ptt = conexao.prepareStatement(sql.toString());
         
-        ptt.setInt(1, d.getId());
-        ptt.setString(2, d.getNome());
+        ptt.setString(1, d.getNome());
+        ptt.setInt(2, d.getId());
         
         ptt.executeUpdate();
                         
