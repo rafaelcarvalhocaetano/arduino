@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1446664144 source:c:\dev\arduino\arduino-c\conexao\main.c
+	<stdio.h>
+	<stdlib.h>
+
