@@ -15,13 +15,14 @@ public class Crud {
         
         StringBuilder sql = new StringBuilder();
         
-        sql.append("INSERT INTO conexao (nome) VALUE (?) ");
+        sql.append("INSERT INTO conexao (id, nome) VALUE (?, ?) ");
         
         Connection con = Conexao.conexao();
         
         PreparedStatement ptt = con.prepareStatement(sql.toString());
         
-        ptt.setString(1, d.getNome());
+        ptt.setInt(1, d.getId());
+        ptt.setString(2, d.getNome());
         
         ptt.executeUpdate();
         
@@ -73,9 +74,5 @@ public class Crud {
             
         }
         return itens;
-    }
-
-    public void listar(Dados d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

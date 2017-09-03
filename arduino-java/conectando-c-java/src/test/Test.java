@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Test {
     
     public static void main(String[] args) {
+    /*
          try{
             Crud dao = new Crud();
             dao.listar();
@@ -25,9 +26,8 @@ public class Test {
             e.printStackTrace();
         }
     }
-        /*
-        
-        EXCLUINDO
+          
+    EXCLUINDO
          try{
             Dados d = new Dados();
             d.setId(2);
@@ -54,5 +54,5 @@ public class Test {
         }
     }
 */
-    
+    }
 }
