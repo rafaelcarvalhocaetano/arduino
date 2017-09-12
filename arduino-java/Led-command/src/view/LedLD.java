@@ -64,10 +64,12 @@ public class LedLD extends javax.swing.JFrame {
 
     private void ligadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ligadoActionPerformed
        arduino.send("l");
+       
     }//GEN-LAST:event_ligadoActionPerformed
 
     private void desligadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desligadoActionPerformed
         arduino.send("b");
+        
     }//GEN-LAST:event_desligadoActionPerformed
 
     /**

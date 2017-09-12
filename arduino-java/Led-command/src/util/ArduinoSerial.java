@@ -13,15 +13,7 @@ import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
 
-/**
- * <b>Site: www.descompila.com</b>
- * 
- * <b>Email: samuelson@descompila.com</b>
- * 
- * @author Samuelson Brito
- * 
- * @version 1.0
- */
+
 public class ArduinoSerial implements SerialPortEventListener {
 
     private SerialPort serialPort;
@@ -92,6 +84,7 @@ public class ArduinoSerial implements SerialPortEventListener {
     }
 
     public void send(String data) {
+        //inserir no terminal
         try {
             output.write(data.getBytes());
         } catch (Exception e) {
@@ -100,10 +93,12 @@ public class ArduinoSerial implements SerialPortEventListener {
     }
 
     public String read() {
+        //leitura
         return inputLine;
     }
 
     public void sleep(int time) {
+        //tempo 
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
